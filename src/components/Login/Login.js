@@ -12,9 +12,14 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    const identifier = setTimeout(() => {
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+    return () => {
+      clearTimeout(identifier); // 새로운 identifier 를 설정하기 전 마지막 timer 를 clear 함
+    };
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
